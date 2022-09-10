@@ -1,4 +1,4 @@
-package usecase
+package auth
 
 import (
 	"context"
@@ -8,5 +8,5 @@ import (
 type UseCase interface {
 	SignUp(ctx context.Context, username, password string) error
 	SignIn(ctx context.Context, username, password string) (string, error)
-	ParseToken(ctx context.Context, accessToken string) (*entity.User, error)
+	ParseToken(ctx context.Context, accessToken string) (*entity.User, error) //todo должно ли это быть тту вообще
 }
