@@ -1,0 +1,12 @@
+App:
+  name: 'go-link-shortener'
+  version: '0.8.1'
+
+Http:
+  port: '8081'
+
+Log:
+  level: 'debug'
+
+PG:
+  DSN: 'user=root password=root host=pg dbname=adminer pool_max_conns=10'
