@@ -1,11 +1,10 @@
 package app
 
 import (
-	"github.com/gin-gonic/gin"
+	"context"
 	"log"
 	"os"
 	"shorter/config"
-	"shorter/pkg/httpserver"
 	"shorter/pkg/postgres"
 )
 
@@ -35,7 +34,7 @@ func (app *App) Init(cfg *config.Config) error {
 	if err != nil {
 		return err
 	}
-	err = app.initDataBase(cfg.PG.DSN)
+	err = app.initDataBase(cfg.PG.URL)
 	if err != nil {
 		return err
 	}
@@ -47,7 +46,7 @@ func (app *App) initFileLogger(path string, lvl string) error {
 	if err != nil {
 		return err
 	}
-	defer fileStream.Close()
+	//defer fileStream.Close()
 
 	app.FileLogger = log.New(fileStream, lvl, log.LstdFlags)
 
@@ -60,17 +59,22 @@ func (app *App) initDataBase(dsn string) error {
 	if err != nil {
 		return err
 	}
-	defer app.Db.Close()
+	//defer app.Db.Close()
 	return nil
 }
 
-//todo here
-func (app *App) initHttpServer() error {
-	handler := gin.New()
-	app.Http = httpserver.New()
-	return nil
-}
+// todo here
+//func (app *App) initHttpServer() error {
+//	handler := gin.New() //using blank gin router without middlewares by def.
+//	app.Http = httpserver.New()
+//	return nil
+//}
 
 func (app *App) Run() {
-
+	row := app.Db.Pool.QueryRow(context.Background(), "SELECT version();")
+	var sqlVersion string
+	row.Scan(&sqlVersion)
+	app.FileLogger.Printf("Application \"%s\" is starting...", app.Name)
+	app.FileLogger.Printf("App version:\t%s", app.Version)
+	app.FileLogger.Printf("SQL version:\t%s", sqlVersion)
 }

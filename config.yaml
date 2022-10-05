@@ -9,4 +9,5 @@ Log:
   level: 'debug'
 
 PG:
-  DSN: 'user=root password=root host=pg dbname=adminer pool_max_conns=10'
+  DSN: 'user=root password=root host=0.0.0.0:5432 dbname=shortener pool_max_conns=10'
+  URL: "postgres://root:root@localhost:5432/shortener"

@@ -19,7 +19,7 @@ func GetUserRepositoryInstance(db *pgx.Conn) *UserRepository {
 	return userRepositoryInstance
 }
 
-//todo embed shit
+// todo embed shit
 var createUserQuery string
 
 func (r *UserRepository) CreateUser(ctx context.Context, user *entity.User) error {
@@ -38,11 +38,11 @@ func (r *UserRepository) CreateUser(ctx context.Context, user *entity.User) erro
 	return nil
 }
 
-var searchUserQuery string
+var fetchUserQuery string
 
 func (r *UserRepository) GetUser(ctx context.Context, username string) (*entity.User, error) {
 	var user *User
-	row := r.db.QueryRow(ctx, searchUserQuery, username)
+	row := r.db.QueryRow(ctx, fetchUserQuery, username)
 
 	err := row.Scan(&user.Id, &user.Login, &user.Password)
 
@@ -50,7 +50,7 @@ func (r *UserRepository) GetUser(ctx context.Context, username string) (*entity.
 		return nil, err
 	}
 
-	entity, err := toEntity(user)
+	entity, err := toEntityUser(user)
 
 	return entity, nil
 }

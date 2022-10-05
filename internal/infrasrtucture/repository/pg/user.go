@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-//TODO теги bson (тока для pgx)?
+// TODO теги bson (тока для pgx)?
 type User struct {
 	Id       int
 	Login    string
@@ -27,8 +27,8 @@ func toPgUser(u *entity.User) (*User, error) {
 	}, nil
 }
 
-//TODO потом бы на нормальные UID перейти
-func toEntity(u *User) (*entity.User, error) {
+// TODO потом бы на нормальные UID перейти
+func toEntityUser(u *User) (*entity.User, error) {
 	userId := strconv.Itoa(u.Id)
 
 	if userId == "" {

@@ -29,6 +29,7 @@ type (
 
 	PG struct {
 		DSN string `yaml:"DSN"`
+		URL string `yaml:"URL"`
 		//PoolMax int    `yaml:"PoolMax"` //todo разобраться с этим
 	}
 )

@@ -11,7 +11,7 @@ import (
 const (
 	defMaxPoolSize  int           = 1
 	defConnAttempts int           = 10
-	defConnTimeout  time.Duration = 5 * time.Second
+	defConnTimeout  time.Duration = 1 * time.Second
 )
 
 type Postgres struct {
@@ -29,6 +29,7 @@ func New(dsn string) (*Postgres, error) {
 	}
 
 	poolConfig, err := pgxpool.ParseConfig(dsn)
+
 	if err != nil {
 		return nil, fmt.Errorf("parse config error:\t%w", err)
 	}
